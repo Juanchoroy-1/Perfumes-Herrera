@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar nuevo producto | Herrera Perfumeria Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600&display=swap">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/componentes.css">
+    <link rel="stylesheet" href="styles/layout.css"></head>
+    
+    <script src="js/datos.js" defer></script> 
+    <script src="js/utilidades.js" defer></script>
+    <script src="js/almacen.js" defer></script> 
+    <script src="js/formulario.js" defer></script>
+<body>
+    
+    <a class="enlace-regresar" href="#contenido-principal">Volver al inicio de la pagina</a>
+
+    <header>
+        <p>Herrera Perfumeria Manager</p>
+        <nav aria-label="principal">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="inventario.html">Inventario</a></li>
+                <li><a href="categorias.html">Categorias</a></li>
+                <li><a href="agregar.html" aria-current="page">Agregar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="contenido-principal">
+        <p><a href="inventario.html">Volver al inventario</a></p>
+        <h1 id="titulo-formulario">Agregar nuevo perfume</h1>
+        <p id="descripcion-formulario">
+            Agregue la descripcion del perfume. Los campos con <span aria-hidden="true">*</span> son obligatorios
+        </p>
+        <div id="resumen-error" tabindex="-1" hidden>
+            <h2>Revisa los campos seleccionados.</h2>
+            <ul></ul>
+        </div>
+
+        <form id="form-perfume" class="class-formulario" aria-labelledby="titulo-formulario" novalidate>
+            <input type="hidden" id="perfume-id" name="id">
+
+            <fieldset>
+                <legend>Imagen del perfume</legend>
+                <div>
+                    <label for="imagen">Fotografia</label>
+                    <input id="imagen" name="imagen" type="file"
+                        accept="image/*" aria-describedby="ayuda-imagen">
+                    <small id="ayuda-imagen">Fromato de imagen. Maximo 1MB</small>
+                    <small id="error-imagen" aria-live="polite"></small>
+                </div>
+                <img id="vista-previa" src="data:,"
+                    alt="vista previa de la imagen seleccionada"
+                    width="300" height="400" hidden>
+            </fieldset>
+
+            <fieldset>
+                <legend>Informacion basica</legend>
+                <div>
+                    <label for="nombre">Nombre del perfume <span aria-hidden="true">*</span></label>
+                    <input id="nombre" name="nombre" type="text" required
+                        minlength="2" maxlength="80" autocomplete="off" aria-describedby="error-nombre">
+                        <small id="error-nombre" aria-live="polite"></small>
+                </div>
+
+                <div>
+                    <label for="marca">Marca <span aria-hidden="true">*</span></label>
+                    <input id="marca" name="marca" type="text" required
+                        minlength="2" maxlength="80" autocomplete="off" 
+                        list="marcas-sugeridas" aria-describedby="error-marca">
+                    <datalist id="marcas-sugeridas">
+                        <!--Esto se llena con js oiste Cristian-->
+                    </datalist>
+                    <small id="error-marca" aria-live="polite"></small>
+                </div>
+                
+                <div>
+                    <label for="categoria">Categoria <span aria-hidden="true">*</span></label>
+                        <select id="categoria" name="categoria" required aria-describedby="error-categoria">
+                            <option value="" selected disabled>Selecciona una categoría</option>
+                            <option value="caballero">Caballero</option>
+                            <option value="dama">Dama</option>
+                            <option value="unisex">Unisex</option>
+                            <option value="sets">Sets</option>
+                        </select>
+                        <small id="error-categoria"></small>
+                    </div>
+
+                    <div>
+                        <label for="aroma">Familia aromatica</label>
+                        <input id="aroma" name="aroma" type="text" maxlength="60"
+                        placeholder="Ej. citrico y fresco" autocomplete="off">
+                    </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Precio e inventario</legend>
+                
+                <div>
+                    <label for="precio">Precio en COP <span aria-hidden="true">*</span></label>
+                    <input id="precio" name="precio" type="number" required
+                        min="1" step="1" inputmode="numeric"
+                        aria-describedby="ayuda-precio error-precio">
+                    <small id="ayuda-precio">En pesos colombianos, sin puntos ni comas.</small>
+                    <small id="error-precio" aria-live="polite"></small>
+                </div>
+        
+                <div>
+                    <label for="stock">Unidades disponibles <span aria-hidden="true">*</span></label>
+                    <input id="stock" name="stock" type="number" required
+                        min="0" step="1" inputmode="numeric"
+                        aria-describedby="error-stock">
+                    <small id="error-stock" aria-live="polite"></small>
+                </div>
+        
+                <div>
+                    <label for="stock-minimo">Stock mínimo <span aria-hidden="true">*</span></label>
+                    <input id="stock-minimo" name="stockMinimo" type="number" required
+                        min="0" step="1" value="3" inputmode="numeric"
+                        aria-describedby="ayuda-stock-minimo error-stock-minimo">
+                    <small id="ayuda-stock-minimo">Igual o por debajo de esta cantidad se marca "Stock bajo".</small>
+                    <small id="error-stock-minimo" aria-live="polite"></small>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Descripción</legend>
+                <div>
+                    <label for="descripcion">Descripción del perfume</label>
+                    <textarea id="descripcion" name="descripcion" rows="4"
+                        maxlength="300" aria-describedby="ayuda-descripcion"></textarea>
+                    <small id="ayuda-descripcion">Máximo 300 caracteres.</small>
+                </div>
+            </fieldset>
+
+            <p class="acciones">
+                <button type="submit" id="boton-guardar">Guardar perfume</button>
+                <a class="boton boton--secundario" href="inventario.html">Cancelar</a>
+            </p>
+        </form>
+    </main>
+
+    <div id="aviso" class="aviso" role="status"></div>
+
+    <footer>
+        <p>Herrera Perfumes · 2026</p>
+    </footer>
+</body>
+</html>

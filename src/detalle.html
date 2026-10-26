@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del perfume · Herrera perfume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600&display=swap">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/componentes.css">
+    <link rel="stylesheet" href="styles/layout.css">
+
+    <script src="js/datos.js" defer></script> 
+    <script src="js/utilidades.js" defer></script>
+    <script src="js/almacen.js" defer></script> 
+    <script src="js/detalle.js" defer></script>
+</head>
+<body>
+    
+    <a class="enlace-regresar" href="#contenido-principal">Volver al inicio</a>
+
+    <header>
+        <p>Herrera Perfume Manager</p>
+        <nav aria-label="principal">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="inventario.html">Inventario</a></li>
+                <li><a href="categorias.html">Categorias</a></li>
+                <li><a href="agregar.html">Agregar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="contenido-principal">
+        <p><a href="inventario.html">Volver al inicio.</a></p>
+        <p id="detalle-error" role="alert" hidden>
+            ¡No encontramos este perfume! Pudo haber sido eliminado.
+        </p>
+
+        <article id="detalle-perfume" class="detalle">
+            <img id="detalle-imagen" src="" alt="" width="300" height="400">
+            <h1 id="detalle-nombre">Detalle del perfume</h1>
+            <p id="detalle-descripcion"></p>
+            <dl>
+                <div><dt>Marca</dt><dd id="detalle-marca"></dd></div>
+                <div><dt>Categoria</dt><dd id="detalle-categoria"></dd></div>
+                <div><dt>Familia aromatica</dt><dd id="detalle-aroma"></dd></div>
+                <div><dt>Precio</dt><dd id="detalle-precio"></dd></div>\n                
+                <div><dt>Existencias</dt><dd id="detalle-stock"></dd></div>
+                <div><dt>Estado</dt><dd id="detalle-estado"></dd></div>
+                </dl>
+            <p class="acciones"><a class="boton" id="detalle-editar" href="agregar.html">Editar campos</a></p>
+        </article>
+    </main>
+
+    <footer>
+        <p>Herrera perfume · 2026</p>
+    </footer>
+</body>
+</html>

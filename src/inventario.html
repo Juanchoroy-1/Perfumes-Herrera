@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Consulta y administra el inventario de perfumes.">
+  <title>Inventario · Herrera Perfumes Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@500;600&display=swap">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/componentes.css">
+    <link rel="stylesheet" href="styles/layout.css">
+
+    <script src="js/datos.js" defer></script> 
+    <script src="js/utilidades.js" defer></script> 
+    <script src="js/almacen.js" defer></script> 
+    <script src="js/inventario.js" defer></script>
+  </head>
+
+<body>
+  <a class="enlace-regresar" href="#contenido-principal">Volver al inicio de la pagina</a>
+
+  <header>
+    <p>Herrera Perfumes Manager</p>
+    <nav aria-label="Principal">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="inventario.html" aria-current="page">Inventario</a></li>
+        <li><a href="categorias.html">Categorias</a></li>
+        <li><a href="agregar.html">Agregar</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="contenido-principal">
+    <h1>Inventario de perfumes</h1>
+    <p>Consulta y administra los productos de Herrera Perfumes.</p>
+    <p><a class="boton" href="agregar.html">Nuevo perfume</a></p>
+
+    <form class="filtros" role="search" aria-label="Buscar y filtrar perfumes">
+      <div>
+        <label for="buscar">Buscar</label>
+        <input id="buscar" name="buscar" type="search"
+               placeholder="Nombre, marca o categoría" autocomplete="off">
+      </div>
+      <div>
+        <label for="filtro-categoria">Categoría</label>
+        <select id="filtro-categoria" name="categoria">
+          <option value="">Todas</option>
+          <option value="Caballero">Caballero</option>
+          <option value="Dama">Dama</option>
+          <option value="Unisex">Unisex</option>
+          <option value="Sets">Sets</option>
+        </select>
+      </div>
+      <div>
+        <label for="filtro-marca">Marca</label>
+        <select id="filtro-marca" name="marca">
+          <option value="">Todas</option>
+          <!-- Las marcas las generará JavaScript a partir de los datos -->
+        </select>
+      </div>
+      <div>
+        <label for="filtro-estado">Estado</label>
+        <select id="filtro-estado" name="estado">
+          <option value="">Todos</option>
+          <option value="disponible">Disponible</option>
+          <option value="stock-bajo">Stock bajo</option>
+          <option value="agotado">Agotado</option>
+        </select>
+      </div>
+      <div>
+        <label for="ordenar">Ordenar por</label>
+        <select id="ordenar" name="ordenar">
+          <option value="nombre">Nombre</option>
+          <option value="precio-asc">Precio menor</option>
+          <option value="precio-desc">Precio mayor</option>
+          <option value="stock">Stock</option>
+        </select>
+      </div>
+      <button class="boton boton--secundario" type="reset">Limpiar filtros</button>
+    </form>
+
+    <p id="resumen-resultados" aria-live="polite"></p>
+
+    <div class="tabla-contenedor" role="region"
+         aria-labelledby="titulo-tabla" tabindex="0">
+      <table>
+        <caption id="titulo-tabla">Perfumes del catálogo</caption>
+        <thead>
+          <tr>
+            <th scope="col">Producto</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div id="sin-resultados" hidden>
+      <h2>No encontramos perfumes</h2>
+      <p>Prueba cambiando la búsqueda o los filtros.</p>
+    </div>
+
+    <template id="plantilla-fila">
+      <tr>
+        <th scope="row"><a href="#" data-campo="nombre"></a></th>
+        <td data-campo="categoria"></td>
+        <td><data data-campo="precio"></data></td>
+        <td data-campo="stock"></td>
+        <td data-campo="estado"></td>
+        <td>
+          <a href="#" data-accion="editar">Editar</a>
+          <button type="button" data-accion="eliminar">Eliminar</button>
+          <button id="btnDetalles">detalles </button>
+        </td>
+      </tr>
+    </template>
+
+    <dialog id="dialogo-eliminar"
+            aria-labelledby="titulo-dialogo"
+            aria-describedby="texto-dialogo">
+      <form method="dialog">
+        <h2 id="titulo-dialogo">¿Eliminar perfume?</h2>
+        <p id="texto-dialogo">Esta acción no se puede deshacer.</p>
+        <button value="cancelar" autofocus>Cancelar</button>
+        <button value="eliminar">Eliminar perfume</button>
+      </form>
+    </dialog>
+  </main>
+
+  <div id="aviso" class="aviso" role="status"></div>
+
+  <footer>
+    <p>Herrera Perfumes · 2026</p>
+  </footer>
+</body>
+</html>
